@@ -14,7 +14,7 @@ function [Parent,Pbest,Gbest] = MatingSelection(PopObj,B,W,Z)
 
     %% Select N parents according to their crowding distances
     PopObj = PopObj - repmat(Z,size(PopObj,1),1);
-    Parent = TournamentSelection(3,N,-CrowdingDistance(PopObj));%锦标赛选择parent
+    Parent = TournamentSelection(3,N,-CrowdingDistance(PopObj));
     
     %% Select the pbest and gbest of each parent
     Pbest = zeros(size(Parent));
@@ -42,9 +42,9 @@ function CrowdDis = CrowdingDistance(PopObj)
     for i = 1 : M
         [~,rank] = sortrows(PopObj(:,i));
         CrowdDis(rank(1))   = inf;
-        CrowdDis(rank(end)) = inf;%每个目标函数的最大值和最小值计为无穷大
+        CrowdDis(rank(end)) = inf;
         for j = 2 : N-1
-            CrowdDis(rank(j)) = CrowdDis(rank(j))+(PopObj(rank(j+1),i)-PopObj(rank(j-1),i))/(Fmax(i)-Fmin(i));%每个个体所有目标适应度和，每个函数的最大值和最小值为无穷大
+            CrowdDis(rank(j)) = CrowdDis(rank(j))+(PopObj(rank(j+1),i)-PopObj(rank(j-1),i))/(Fmax(i)-Fmin(i));
         end
     end
 end
