@@ -20,7 +20,7 @@ Matlab
 % [Results] = CEMP('Data_Treutlin.mat',1,1,1,1,2);
 
 ## Acknowlege
-PlatEMO (https://github.com/BIMK/PlatEMO)
+[PlatEMO](https://github.com/BIMK/PlatEMO)
 
 ## Contact
 cslqm@hit.edu.cn
