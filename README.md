@@ -14,7 +14,9 @@ Matlab
 
 ## Example
 % > Matlab R2016b
+
 % CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
+
 % [Results] = CEMP('Data_Treutlin.mat',1,1,1,1,2);
 
 ## Contact
