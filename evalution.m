@@ -16,13 +16,8 @@ function [RS,Jc,FM,F1]=evalution(X,idx, label)
     end
     trn=ss+sd+ds+dd;
     pr=ss/(ss+sd)+ss/(ss+ds);
-%     fprintf('总关系数目：%d   \n',trn);
     RS=(ss+dd)/trn;
     Jc=ss/(ss+sd+ds);
     FM=sqrt((ss^2)/((ss+sd)*(ss+ds)));
     F1=2*(ss/(ss+sd))*(ss/(ss+ds))/pr;
-%     fprintf('Rand指标：%f   \n',RS);
-%     fprintf('Jaccard指标：%f   \n',Jc);
-%     fprintf('FM指标：%f   \n',FM);
-%     fprintf('F1指标：%f   \n',F1);
 end
