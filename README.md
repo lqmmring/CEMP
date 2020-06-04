@@ -5,7 +5,7 @@ Clustering Ensemble algorithm using optimized Multiobjective Particle (CEMP) in 
 
 - Basic partition module in different subspaces;
 
-- Transforming representation between clusters and particle;
+- Transforming representation between clusters and particles;
 
 - Clustering ensemble optimization.
 
@@ -19,7 +19,7 @@ MATLAB R2016b
 
 % [Results] = CEMP('Data_Treutlin.mat',1,1,1,1,2);
 
-## Acknowlege
+## Acknowlegement
 [PlatEMO](https://github.com/BIMK/PlatEMO)
 
 ## Contact
