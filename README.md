@@ -11,10 +11,9 @@ Clustering Ensemble algorithm using optimized Multiobjective Particle (CEMP) in 
 
 ## Requirement
 
-CEMP is available from Matlab
+MATLAB R2016b
 
 ## Example
-% > Matlab R2016b
 
 % CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
 
