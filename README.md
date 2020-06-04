@@ -1,13 +1,13 @@
 # CEMP
 Clustering Ensemble algorithm using optimized Multiobjective Particle (CEMP) in single-cell RNA-seq. CEMP is featured with several mechanisms:
 
-- multi-subspace projection method.
+- multi-subspace projection method;
 
-- basic partition module in different subspaces
+- basic partition module in different subspaces;
 
-- transforming representation between clusters and particle
+- transforming representation between clusters and particle;
 
-- clustering ensemble optimization
+- clustering ensemble optimization.
 
 ## Requirement
 
