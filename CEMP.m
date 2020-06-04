@@ -12,8 +12,7 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
     Data=load(path_data);
     similarity={'ED','PC','SC','PC_ED','SC_ED','PC_SC','PC_SC_ED'};
     % index_of_similarity=4;
-
-    %% 输入数据，数据预处理
+    
     X=Data.in_X;
     X_norm=normalizeData(X);
     num_Cluster = length(unique(Data.true_labs)); % the number of clusters in the final clustering (using in consensus functions)
@@ -80,7 +79,7 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
     N=size(labelParicles,2);
     [W,N] = UniformPoint(N,M);
     W = W./repmat(sqrt(sum(W.^2,2)),1,size(W,2));
-           %T计算方法1：
+    
     if T_index == 1
         T = ceil(N/3);
         if T<3
@@ -164,8 +163,7 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
         all_Offspring_Value(:,:,evaluated)=Offspring_Value;
         all_Offspring_Value_with_label(:,:,evaluated)=Offspring_Value_with_label;
         Z = min([Z;Offspring_Value],[],1);
-
-        %计算每次最好的个体和全局最好个体
+        
         [POP_best(evaluated),index]=max(Offspring_Value_with_label(:,1));
         bestPOP(:,evaluated) = Offspring(:,index);
         if evaluated == 1
