@@ -183,7 +183,7 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
         all_cluster_results2(:,:,evaluated)=Population;
         toc
     end %end of evaluated
-    Results.best=min(GAL_best);
+    [Results.best,Results.index]=max(GAL_best);
     Results.withoutlabel=all_Offspring_Value;
     Results.withlabel=all_Offspring_Value_with_label;
     Results.cluster=all_cluster_results2;
