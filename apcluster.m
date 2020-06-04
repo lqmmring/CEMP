@@ -47,12 +47,12 @@
 function [idx,netsim,dpsim,expref]=apcluster(s,p,varargin); 
 start = clock; 
 % Handle arguments to function 
-if nargin<2 error('Too few input arguments');  %必须输入至少两个参数，即相似度矩阵和聚类倾向程度
+if nargin<2 error('Too few input arguments');  
 else 
-    maxits=1000; convits=100; lam=0.9; plt=0; details=0; nonoise=0;     %设置其它参数
+    maxits=1000; convits=100; lam=0.9; plt=0; details=0; nonoise=0;
     i=1; 
     while i<=length(varargin)     
-        if strcmp(varargin{i},'plot')   %画出，收敛曲线
+        if strcmp(varargin{i},'plot')
             plt=1; i=i+1;          
         elseif strcmp(varargin{i},'details') 
             details=1; i=i+1;        
@@ -62,15 +62,15 @@ else
 			return; 
         elseif strcmp(varargin{i},'nonoise') 
             nonoise=1; i=i+1; 
-        elseif strcmp(varargin{i},'maxits')    %最大迭代次数
+        elseif strcmp(varargin{i},'maxits')
             maxits=varargin{i+1};   
             i=i+2; 
             if maxits<=0 error('maxits must be a positive integer'); end; 
-        elseif strcmp(varargin{i},'convits')   %收敛迭代间隔
+        elseif strcmp(varargin{i},'convits')
             convits=varargin{i+1}; 
             i=i+2; 
             if convits<=0 error('convits must be a positive integer'); end; 
-        elseif strcmp(varargin{i},'dampfact')  %阻尼系数，防止数据震荡
+        elseif strcmp(varargin{i},'dampfact') 
             lam=varargin{i+1}; 
             i=i+2; 
             if (lam<0.5)||(lam>=1) 
@@ -80,7 +80,7 @@ else
         end; 
     end; 
 end; 
-if lam>0.9   %阻尼系数最好不要大于0.9
+if lam>0.9
     fprintf('\n*** Warning: Large damping factor in use. Turn on plotting\n'); 
     fprintf('    to monitor the net similarity. The algorithm will\n'); 
     fprintf('    change decisions slowly, so consider using a larger value\n'); 
@@ -88,10 +88,9 @@ if lam>0.9   %阻尼系数最好不要大于0.9
 end; 
  
 % Check that standard arguments are consistent in size
-%检查相似矩阵，需要二维数据，参数P必须是个标量或矢量
 if length(size(s))~=2 error('s should be a 2D matrix'); 
 elseif length(size(p))>2 error('p should be a vector or a scalar');   %
-elseif size(s,2)==3 %检查，为形成相似矩阵的数据，是否完整
+elseif size(s,2)==3 
     tmp=max(max(s(:,1)),max(s(:,2))); 
     if length(p)==1 N=tmp; else N=length(p); end; 
     if tmp>N 
@@ -106,12 +105,12 @@ elseif size(s,1)==size(s,2)
     end; 
 else error('s must have 3 columns or be square'); end; 
  
-% Construct similarity matrix   构建相似矩阵
+% Construct similarity matrix 
 if N>3000 
     fprintf('\n*** Warning: Large memory request. Consider activating\n'); 
     fprintf('    the sparse version of APCLUSTER.\n\n'); 
 end; 
-if size(s,2)==3 && size(s,1)~=3,    %针对的是未形成相似矩阵的数据
+if size(s,2)==3 && size(s,1)~=3, 
     S=-Inf*ones(N,N,class(s));  
     for j=1:size(s,1), S(s(j,1),s(j,2))=s(j,3); end; 
 else S=s; 
@@ -129,17 +128,17 @@ if ~nonoise
     randn('state',rns); 
 end; 
  
-% Place preferences on the diagonal of S   把聚类倾向系数填入相似矩阵的对角线
+% Place preferences on the diagonal of S
 if length(p)==1 for i=1:N S(i,i)=p; end; 
 else for i=1:N S(i,i)=p(i); end; 
 end; 
  
-% Numerical stability -- replace -INF with -realmax   用最小实数代替非数字
+% Numerical stability -- replace -INF with -realmax 
 n=find(S<-realmax_); if ~isempty(n), warning('-INF similarities detected; changing to -REALMAX to ensure numerical stability'); S(n)=-realmax_; end; clear('n'); 
 if ~isempty(find(S>realmax_,1)), error('+INF similarities detected; change to a large positive value (but smaller than +REALMAX)'); end; 
  
  
-% Allocate space for messages, etc   给结果分配空间
+% Allocate space for messages, etc
 dS=diag(S); A=zeros(N,N,class(s)); R=zeros(N,N,class(s)); t=1; 
 if plt, netsim=zeros(1,maxits+1); end; 
 if details 
