@@ -58,10 +58,6 @@ end
 
 NCLUST = K;
 
-%% cl 为归属标志数组，cl(i)=j 表示第 i 号数据点归属于第 j 个 cluster
-%% 先统一将 cl 初始化为 -1
-
-
 for i=1:size(dist,1)
     cl(i)=-1;
 end
