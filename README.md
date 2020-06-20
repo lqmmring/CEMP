@@ -35,9 +35,9 @@ MATLAB R2016b
 
 ## Example
 
-% CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
+% CEMP(path_data,index_of_similarity,CA,C1,C2,T_index,evaluation)
 
-% [Results] = CEMP('Data_Treutlin.mat',1,1,1,1,2);
+% [Results] = CEMP('Data_Treutlin.mat',1,1,1,1,2,50);
 
 ## Main compaired algorithm
 
