@@ -1,18 +1,19 @@
-function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
+function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index,evaluation)
 %% ==========================================================================
 % % FUNCTION: CEMP
 % % DESCRIPTION: A pipline for multi-view clustering via multiobjective
 % % particle swarm optimization
 
 % % ==========================================================================
-% % % % copyright (c) 2019 Q.M Liu & G.H Wang
+% % % % copyright (c) 2019 Q.M Liu & G.H Wang & X.D Zhao
 % % ==========================================================================
     tic
     %% Input data and data pre-processing
     Data=load(path_data);
     similarity={'ED','PC','SC','PC_ED','SC_ED','PC_SC','PC_SC_ED'};
     % index_of_similarity=4;
-    
+
+    %% 输入数据，数据预处理
     X=Data.in_X;
     X_norm=normalizeData(X);
     num_Cluster = length(unique(Data.true_labs)); % the number of clusters in the final clustering (using in consensus functions)
@@ -79,7 +80,7 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
     N=size(labelParicles,2);
     [W,N] = UniformPoint(N,M);
     W = W./repmat(sqrt(sum(W.^2,2)),1,size(W,2));
-    
+           %T计算方法1：
     if T_index == 1
         T = ceil(N/3);
         if T<3
@@ -121,7 +122,7 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
 
     %% Optimization
     B_plus=B;
-    evaluation = 100; %the number of iteration
+    %evaluation = 100; %the number of iteration
     %% Paramaters intilization
     Offspring_Vel = zeros(size(Population));
     POP_best=zeros(1,evaluation);
@@ -135,7 +136,7 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
     Results=[];
     %% Evaluation start
     for evaluated = 1:evaluation
-        if mod(evaluated,50) == 0
+        if mod(evaluated,10) == 0
             fprintf('SIMILARITY: %s, T= %d, C1 = %d, C2 = %d, CA = %d,evaluation: %d\n',similarity{index_of_similarity},T,C1,C2,CA, evaluated);
         end
         [Parent,Pbest,Gbest] = MatingSelection(Value,B_plus,W_plus,Z);
@@ -163,7 +164,8 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
         all_Offspring_Value(:,:,evaluated)=Offspring_Value;
         all_Offspring_Value_with_label(:,:,evaluated)=Offspring_Value_with_label;
         Z = min([Z;Offspring_Value],[],1);
-        
+
+        %计算每次最好的个体和全局最好个体
         [POP_best(evaluated),index]=max(Offspring_Value_with_label(:,1));
         bestPOP(:,evaluated) = Offspring(:,index);
         if evaluated == 1
@@ -185,4 +187,9 @@ function [Results] = CEMP(path_data,index_of_similarity,CA,C1,C2,T_index)
     Results.withoutlabel=all_Offspring_Value;
     Results.withlabel=all_Offspring_Value_with_label;
     Results.cluster=all_cluster_results2;
+    Results.finalCluster=gbestPOP(:,Results.index);
+    [rs,jc,fm,f1]=evalution(X, Data.true_labs, Results.finalCluster);
+    nmi=Cal_NMI(Data.true_labs, Results.finalCluster);
+    ri=RandIndex(Data.true_labs, Results.finalCluster);
+    Results.evalution=[nmi,ri,rs,jc,fm,f1];
     toc
