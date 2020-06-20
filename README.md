@@ -14,11 +14,11 @@ Clustering Ensemble algorithm using optimized Multiobjective Particle (CEMP) in 
 ## Main function
 [CEMP](https://github.com/lqmmring/CEMP/blob/master/CEMP.m): Main CEMO algorithm consisting of the three steps.
 
-[Mating selection of MPSO/D](https://github.com/lqmmring/CEMP/blob/master/MatingSelection.m): Mating selection of MPSO/D.
+[Mating selection of MPSO/D](https://github.com/lqmmring/CEMP/blob/master/MatingSelection.m): Mating selection in CEMP.
 
 [NDSort](https://github.com/lqmmring/CEMP/blob/master/NDSort.m): Non-dominated sorting by efficient non-dominated sort.
 
-[Operator](https://github.com/lqmmring/CEMP/blob/master/Operator.m):Particle swarm optimization in MPSO/D.
+[Operator](https://github.com/lqmmring/CEMP/blob/master/Operator.m):Particle swarm optimization in CEMP.
 
 [TournamentSelection](https://github.com/lqmmring/CEMP/blob/master/TournamentSelection.m): Tournament selection processing.
 
