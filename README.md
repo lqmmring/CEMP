@@ -1,7 +1,7 @@
 # CEMP
 
 ## Overview
-Clustering Ensemble algorithm using optimized Multiobjective Particle (CEMP) in single-cell RNA-seq. CEMP is featured with several mechanisms:
+A clustering ensemble method for cell type detection by multiobjective particle optimization (CEMP). CEMP is featured with several mechanisms:
 
 - Multi-subspace projection method;
 
